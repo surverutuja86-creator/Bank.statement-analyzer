@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Login | Smart Bank Statement Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 100vh; position: relative;">
+
+    <!-- Background Ambient Glow -->
+    <div style="position: absolute; top: 20%; left: 30%; width: 300px; height: 300px; background: rgba(6, 182, 212, 0.2); filter: blur(100px); border-radius: 50%; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 20%; right: 30%; width: 300px; height: 300px; background: rgba(139, 92, 246, 0.2); filter: blur(100px); border-radius: 50%; pointer-events: none;"></div>
+
+    <div class="glass-card" style="width: 100%; max-width: 440px; padding: 2.5rem; border-radius: var(--radius-lg); z-index: 10;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <a href="/" class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+                <span>FinPulse <span class="text-gradient">AI</span></span>
+            </a>
+            <h2 style="font-family: var(--font-heading); font-size: 1.75rem; margin-bottom: 0.25rem;">Welcome Back</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to access your bank statement analytics</p>
+        </div>
+
+        <div id="authAlert" style="display: none; padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem; font-size: 0.875rem;"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username or Email</label>
+                <div style="position: relative;">
+                    <input type="text" id="username" class="form-control" style="padding-left: 2.5rem;" placeholder="demo_user or john@example.com" value="demo_user" required>
+                    <i class="fas fa-user" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-dim);"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div style="position: relative;">
+                    <input type="password" id="password" class="form-control" style="padding-left: 2.5rem;" placeholder="Enter password" value="password123" required>
+                    <i class="fas fa-lock" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-dim);"></i>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; font-size: 0.85rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); cursor: pointer;">
+                    <input type="checkbox" checked style="accent-color: var(--primary);"> Remember session
+                </label>
+                <a href="#" style="color: var(--primary); text-decoration: none;">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem;"><i class="fas fa-right-to-bracket"></i> Sign In to Dashboard</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light); font-size: 0.9rem; color: var(--text-muted);">
+            Don't have an account? <a href="/register" style="color: var(--primary); font-weight: 600; text-decoration: none;">Create Account</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const alertBox = document.getElementById('authAlert');
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = 'rgba(244, 63, 94, 0.15)';
+                    alertBox.style.color = '#f87171';
+                    alertBox.style.border = '1px solid rgba(244, 63, 94, 0.3)';
+                    alertBox.innerText = data.error;
+                } else {
+                    alertBox.style.display = 'block';
+                    alertBox.style.background = 'rgba(16, 185, 129, 0.15)';
+                    alertBox.style.color = '#34d399';
+                    alertBox.style.border = '1px solid rgba(16, 185, 129, 0.3)';
+                    alertBox.innerText = data.message + ' Redirecting...';
+                    setTimeout(() => window.location.href = data.redirect || '/dashboard', 800);
+                }
+            })
+            .catch(() => {
+                alertBox.style.display = 'block';
+                alertBox.innerText = 'Login error. Please try again.';
+            });
+        });
+    </script>
+</body>
+</html>

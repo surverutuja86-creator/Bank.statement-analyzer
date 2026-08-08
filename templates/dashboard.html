@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Analytics Dashboard | Smart Bank Statement Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="background-color: var(--bg-dark); padding-bottom: 3rem;">
+
+    <!-- Top Workspace Navbar -->
+    <nav class="navbar" style="background: rgba(11, 15, 25, 0.95); margin-bottom: 2rem;">
+        <div class="container">
+            <a href="/" class="logo">
+                <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
+                <span>FinPulse <span class="text-gradient">AI</span></span>
+            </a>
+            
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#upload" class="nav-link"><i class="fas fa-upload"></i> Upload Statement</a>
+                <a href="#txns" class="nav-link"><i class="fas fa-list-check"></i> Transactions</a>
+            </div>
+
+            <div class="nav-actions">
+                <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; background: rgba(255,255,255,0.05); padding: 0.4rem 0.8rem; border-radius: 20px; border: 1px solid var(--border-light);">
+                    <i class="fas fa-circle-user" style="color: var(--primary);"></i>
+                    <span id="userDisplayName">Account Workspace</span>
+                </div>
+                <a href="/api/auth/logout" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;"><i class="fas fa-right-from-bracket"></i> Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Workspace -->
+    <div class="container">
+        
+        <!-- Header Actions Banner -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h1 style="font-family: var(--font-heading); font-size: 2rem; font-weight: 700;">Bank Statement Analytics Workspace</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Real-time transaction processing, exact decimal precision, and anomaly flags</p>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="btn btn-secondary" onclick="if(confirm('Clear transaction history from SQLite database?')){fetch('/api/transactions/clear', {method: 'POST'}).then(() => location.reload());}">
+                    <i class="fas fa-trash-can" style="color: var(--accent-rose);"></i> Clear Records
+                </button>
+                <a href="/download-sample-csv" download="sample_statement.csv" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Download Sample CSV
+                </a>
+            </div>
+        </div>
+
+        <!-- 4 Summary KPI Cards -->
+        <div class="summary-cards-grid">
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-title">Total Income</span>
+                    <i class="fas fa-arrow-down-left kpi-icon" style="color: var(--secondary);"></i>
+                </div>
+                <div class="kpi-val" id="kpi-total-income">₹0.00</div>
+                <div class="kpi-trend positive"><i class="fas fa-trending-up"></i> Salary & Credits</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-title">Total Expenses</span>
+                    <i class="fas fa-arrow-up-right kpi-icon" style="color: var(--accent-rose);"></i>
+                </div>
+                <div class="kpi-val" id="kpi-total-expense">₹0.00</div>
+                <div class="kpi-trend negative"><i class="fas fa-shopping-bag"></i> Outflows & Debits</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-title">Net Savings</span>
+                    <i class="fas fa-piggy-bank kpi-icon" style="color: var(--primary);"></i>
+                </div>
+                <div class="kpi-val" id="kpi-net-savings">₹0.00</div>
+                <div class="kpi-trend positive"><i class="fas fa-chart-line"></i> Savings Rate: <span id="kpi-savings-rate">0.0%</span></div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-header">
+                    <span class="kpi-title">Anomalies Flagged</span>
+                    <i class="fas fa-bell kpi-icon" style="color: var(--accent-amber);"></i>
+                </div>
+                <div class="kpi-val" id="kpi-anomalies">0</div>
+                <div class="kpi-trend negative"><i class="fas fa-shield-alert"></i> Duplicate & Spikes</div>
+            </div>
+        </div>
+
+        <!-- Statement Drag & Drop Upload Zone -->
+        <div id="upload" class="upload-sim-box" id="fileDropzone">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <h3 style="font-family: var(--font-heading); margin-bottom: 0.25rem;">Upload Your Bank Statement (CSV or Excel)</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Supports HDFC, ICICI, SBI, Axis, and international bank CSV/Excel files</p>
+            <input type="file" id="statementFileInput" accept=".csv, .xlsx, .xls" style="display: none;">
+            <button class="btn btn-secondary" onclick="document.getElementById('statementFileInput').click()"><i class="fas fa-folder-open"></i> Select File</button>
+            <div id="uploadStatusBox" style="margin-top: 1rem; font-size: 0.9rem; font-weight: 500;"></div>
+        </div>
+
+        <!-- Analytics Visualizations -->
+        <div class="dash-grid-top">
+            <div class="chart-card">
+                <h4><i class="fas fa-chart-pie" style="color: var(--primary);"></i> Expense Distribution by Category</h4>
+                <div class="chart-wrapper">
+                    <canvas id="categoryPieChart"></canvas>
+                </div>
+            </div>
+
+            <div class="alerts-panel">
+                <div class="chart-card" style="height: 100%;">
+                    <h4><i class="fas fa-shield-virus" style="color: var(--accent-rose);"></i> Anomaly & Fraud Shield</h4>
+                    
+                    <div class="alert-item">
+                        <i class="fas fa-copy"></i>
+                        <div class="alert-text">
+                            <h5>Duplicate Debit Warning</h5>
+                            <p>Identifies identical charge amounts executed twice within 48 hours.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert-item warning" style="margin-top: 0.75rem;">
+                        <i class="fas fa-bolt"></i>
+                        <div class="alert-text">
+                            <h5>Spending Spike Flag</h5>
+                            <p>Flags debits that exceed 2.5x your 30-day average transaction size.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert-item" style="margin-top: 0.75rem; background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.3);">
+                        <i class="fas fa-repeat" style="color: var(--accent-purple);"></i>
+                        <div class="alert-text">
+                            <h5 style="color: #c084fc;">Subscription Tracking</h5>
+                            <p>Identifies recurring monthly SaaS, streaming, and utility debits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="chart-card" style="margin-bottom: 2rem;">
+            <h4><i class="fas fa-chart-bar" style="color: var(--secondary);"></i> Monthly Income vs Expense Comparison</h4>
+            <div class="chart-wrapper" style="height: 240px;">
+                <canvas id="monthlyBarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Filterable Transactions Table -->
+        <div id="txns" class="txns-table-container">
+            <div class="table-filters">
+                <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                    <input type="text" id="txnSearchInput" class="search-input" placeholder="Search narration or ref #...">
+                    <select id="txnCategoryFilter" class="filter-select">
+                        <option value="All">All Categories</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Food & Dining">Food & Dining</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Subscriptions">Subscriptions</option>
+                        <option value="EMI & Loans">EMI & Loans</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Investments">Investments</option>
+                    </select>
+                    <select id="txnFlagFilter" class="filter-select">
+                        <option value="">All Flags</option>
+                        <option value="salary">Salary Only</option>
+                        <option value="upi">UPI Only</option>
+                        <option value="emi">EMI Only</option>
+                        <option value="subscription">Subscriptions</option>
+                        <option value="duplicate">Duplicate Debits</option>
+                        <option value="spike">Spending Spikes</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    Stored in SQLite database with exact Decimal precision
+                </div>
+            </div>
+
+            <table class="txns-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description & Flags</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th style="text-align: right;">Amount (Decimal ₹)</th>
+                    </tr>
+                </thead>
+                <tbody id="txnsTableBody">
+                    <!-- Populated dynamically via app.js -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Script Engine -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        fetch('/api/auth/me')
+            .then(res => res.json())
+            .then(data => {
+                if (data.user) {
+                    document.getElementById('userDisplayName').innerText = data.user.full_name || data.user.username;
+                }
+            });
+    </script>
+</body>
+</html>
