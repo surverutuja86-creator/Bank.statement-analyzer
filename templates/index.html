@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Bank Statement Analyzer | Smart Financial Analysis for Every Bank Statement</title>
-    <meta name="description" content="Automate bank statement processing with Python & SQLite. Instant UPI detection, Salary tracking, EMI & Subscription identification, Anomaly detection, and exact Decimal precision.">
-    <meta name="keywords" content="Bank Statement Analyzer, Financial Analysis, Python SQLite, Transaction Categorization, Fraud Detection, Decimal Precision">
+    <title>CityLens AI — Financial Intelligence & Statement Scanner</title>
+    <meta name="description" content="CityLens AI transforms everyday bank statements into intelligent financial sensing units. Edge AI detects UPI, Salaries, EMIs, Subscriptions, and Anomaly Spikes in real time.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316164F'/%3E%3Cg fill='none' stroke='%23F4E8D6' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='16' cy='14' r='7'/%3E%3Cpath d='M16 21v7M11.5 28h9'/%3E%3C/g%3E%3Ccircle cx='16' cy='14' r='2.6' fill='%23FF9933'/%3E%3C/svg%3E"/>
     
     <!-- Google Fonts & FontAwesome CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom FinTech CSS -->
@@ -18,732 +21,355 @@
 </head>
 <body>
 
-    <!-- ==========================================================================
-         NAVIGATION BAR
-         ========================================================================== -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#home" class="logo">
-                <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
-                <span>FinPulse <span class="text-gradient">AI</span></span>
-            </a>
+    <div class="wrap" style="max-width: 1180px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 2;">
+        
+        <!-- ==========================================================================
+             NAVIGATION BAR (CityLens Style)
+             ========================================================================== -->
+        <header style="display:flex; align-items:center; gap:14px; padding:16px 0; position:sticky; top:0; z-index:100; background:rgba(7,10,18,.75); backdrop-filter:blur(20px); border-bottom: 1px solid rgba(255,255,255,.08);">
+            <div class="logo" style="width:42px; height:42px; border-radius:10px; background:linear-gradient(145deg, rgba(113,132,255,.35), rgba(15,20,34,.92)); border:1px solid rgba(160,171,255,.32); display:grid; place-items:center; color:#F4E8D6; box-shadow:0 0 15px rgba(87,96,255,.3);">
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                    <circle cx="16" cy="14" r="7.5"/>
+                    <circle cx="16" cy="14" r="2.6" fill="#FF9933" stroke="none"/>
+                    <path d="M16 21.5V29M11 29h10"/>
+                </svg>
+            </div>
+            <div>
+                <div class="bname" style="font-family:var(--disp); font-weight:700; font-size:18px; color:#F5F7FF;">FinPulse <span style="color:#6F80FF;">AI</span></div>
+                <div class="btag" style="font-size:10.5px; color:#7D879D; letter-spacing:.13em; text-transform:uppercase; font-family:var(--mono);">Financial Intelligence &amp; Statement Audit</div>
+            </div>
+            <nav style="margin-left:auto; display:flex; gap:20px; align-items:center; font-size:14px;">
+                <a href="#how" style="color:#AAB3C8; text-decoration:none; transition:.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#AAB3C8'">How it works</a>
+                <a href="#features" style="color:#AAB3C8; text-decoration:none; transition:.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#AAB3C8'">Capabilities</a>
+                <a href="#command-center" style="color:#AAB3C8; text-decoration:none; transition:.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#AAB3C8'">Dropzone</a>
+                <a class="btn btn-ghost btn-sm" href="/login" style="background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.13); color:#EAF0FF; padding:8px 14px; border-radius:9px; text-decoration:none;">Sign in</a>
+                <a class="btn btn-primary btn-sm" href="/dashboard" style="background:linear-gradient(135deg,#6F80FF,#8C69FF); border:1px solid rgba(255,255,255,.18); color:#fff; padding:8px 16px; border-radius:9px; font-weight:600; text-decoration:none; box-shadow:0 10px 30px rgba(87,96,255,.25);">Launch Command Center →</a>
+            </nav>
+        </header>
+
+        <!-- ==========================================================================
+             HERO SECTION (CityLens Style)
+             ========================================================================== -->
+        <section class="hero" style="padding:64px 0 30px; text-align:center;">
+            <div class="eyebrow">
+                <span class="pdot"></span> LIVE FINANCIAL INTELLIGENCE · REAL-WORLD AUDIT
+            </div>
             
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#workflow" class="nav-link">Workflow</a></li>
-                <li><a href="#dashboard-preview" class="nav-link">Demo Preview</a></li>
-                <li><a href="#techstack" class="nav-link">Tech Stack</a></li>
-                <li><a href="#futurescope" class="nav-link">Future Scope</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-
-            <div class="nav-actions">
-                <a href="/login" class="btn btn-secondary"><i class="fas fa-user-lock"></i> Login</a>
-                <a href="/register" class="btn btn-secondary" style="border-color: var(--primary); color: var(--primary);"><i class="fas fa-user-plus"></i> Register</a>
-                <a href="/dashboard" class="btn btn-primary"><i class="fas fa-gauge-high"></i> Dashboard Workspace</a>
+            <h1 style="font-family:var(--disp); font-size:clamp(34px, 5.5vw, 58px); font-weight:700; line-height:1.12; letter-spacing:-.015em; max-width:880px; margin:0 auto; color:#F7F9FF;">
+                AI-Powered Statements as<br/>
+                <span class="glow">Mobile Financial Scanners</span>
+            </h1>
+            
+            <p class="sub" style="max-width:680px; margin:20px auto 0; color:#ADB8CE; font-size:16.5px; line-height:1.65;">
+                FinPulse AI transforms everyday CSV &amp; Excel bank statements into intelligent financial sensing units. Python Edge AI parses ledger lines in real time — detecting UPI handles, Salaries, EMIs, Subscriptions, and Anomaly Spikes, and dispatching geo-tagged evidence straight to your financial dashboard.
+            </p>
+            
+            <div class="cta" style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:32px;">
+                <a class="btn btn-primary" href="/dashboard" style="background:linear-gradient(135deg,#6F80FF,#8C69FF); color:#fff; padding:12px 24px; border-radius:11px; font-weight:600; text-decoration:none; box-shadow:0 12px 35px rgba(87,96,255,.3);">Launch Command Center →</a>
+                <a class="btn btn-ghost" href="#command-center" style="background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.13); color:#EAF0FF; padding:12px 22px; border-radius:11px; text-decoration:none;">Open Statement Dropzone</a>
+                <a class="btn btn-ghost" href="/download-sample-csv" download style="background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.13); color:#EAF0FF; padding:12px 22px; border-radius:11px; text-decoration:none;"><i class="fas fa-download"></i> Sample CSV</a>
+            </div>
+            
+            <div class="microcred" style="margin-top:16px; font-size:12.5px; color:#7F8BA3; font-family:var(--mono);">
+                self-serve upload · zero floating point error (Decimal Engine) · local-first SQLite database
             </div>
 
-            <button class="mobile-toggle"><i class="fas fa-bars"></i></button>
-        </div>
-    </nav>
-
-    <!-- ==========================================================================
-         1. HOME SECTION (HERO & STATS)
-         ========================================================================== -->
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        <i class="fas fa-shield-alt"></i> Precision Engine v2.4 Active
-                    </div>
-                    <h1 class="hero-title">
-                        Smart Bank <br>
-                        <span class="text-gradient">Statement Analyzer</span>
-                    </h1>
-                    <p class="hero-tagline">
-                        <strong>"Smart Financial Analysis for Every Bank Statement"</strong>
-                    </p>
-                    <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">
-                        Transform raw CSV/Excel bank statements into structured insights, automatic categorizations, anomaly alerts, and tax-ready monthly reports with exact decimal precision.
-                    </p>
+            <!-- CITYLENS END-TO-END PIPELINE DIAGRAM -->
+            <div class="pipe-card" id="how">
+                <div class="pipe-title">One transaction line · end to end · ingest to ledger audit ticket</div>
+                <div class="pipe" id="pipe">
                     
-                    <div class="hero-ctas">
-                        <a href="#features" class="btn btn-secondary"><i class="fas fa-list-check"></i> View Features</a>
-                        <a href="/dashboard" class="btn btn-primary"><i class="fas fa-gauge-high"></i> Open Full Dashboard</a>
-                    </div>
-                </div>
-
-                <div class="hero-visual">
-                    <div class="hero-img-wrapper">
-                        <img src="{{ url_for('static', filename='images/hero-illustration.jpg') }}" alt="Smart Bank Statement Analysis Dashboard">
+                    <div class="pnode" data-i="0">
+                        <div class="pico"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="plbl">Bank CSV</div>
+                        <div class="psub">statement drop</div>
+                        <div class="plink"><span class="spark"></span></div>
                     </div>
                     
-                    <!-- Floating Interactive Badges -->
-                    <div class="floating-widget top-right">
-                        <i class="fas fa-check-circle" style="color: var(--secondary); font-size: 1.5rem;"></i>
-                        <div>
-                            <div style="font-weight: 700; font-size: 0.9rem;">99.8% Accuracy</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Decimal Money Precision</div>
-                        </div>
+                    <div class="pnode" data-i="1">
+                        <div class="pico"><i class="fas fa-microchip"></i></div>
+                        <div class="plbl">Parser &amp; OCR</div>
+                        <div class="psub">tabular extraction</div>
+                        <div class="plink"><span class="spark"></span></div>
+                    </div>
+                    
+                    <div class="pnode" data-i="2">
+                        <div class="pico"><i class="fas fa-brain"></i></div>
+                        <div class="plbl">Edge AI</div>
+                        <div class="psub">pattern rules</div>
+                        <div class="plink"><span class="spark"></span></div>
+                    </div>
+                    
+                    <div class="pnode" data-i="3">
+                        <div class="pico"><i class="fas fa-calculator"></i></div>
+                        <div class="plbl">Decimal Math</div>
+                        <div class="psub">0.00 float loss</div>
+                        <div class="plink"><span class="spark"></span></div>
+                    </div>
+                    
+                    <div class="pnode" data-i="4">
+                        <div class="pico"><i class="fas fa-shield-virus"></i></div>
+                        <div class="plbl">Anomaly Shield</div>
+                        <div class="psub">dup &amp; spike check</div>
+                        <div class="plink"><span class="spark"></span></div>
+                    </div>
+                    
+                    <div class="pnode" data-i="5">
+                        <div class="pico"><i class="fas fa-gauge-high"></i></div>
+                        <div class="plbl">Command Center</div>
+                        <div class="psub">audit ticket opened</div>
+                        <div class="plink"><span class="spark"></span></div>
                     </div>
 
-                    <div class="floating-widget bottom-left">
-                        <i class="fas fa-exclamation-circle" style="color: var(--accent-rose); font-size: 1.5rem;"></i>
-                        <div>
-                            <div style="font-weight: 700; font-size: 0.9rem;">Anomaly Detected</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted);">Duplicate Debit Flagged</div>
-                        </div>
-                    </div>
+                </div>
+                <div class="pipe-read">
+                    <div class="readout" id="readout"><span class="tag">›</span> initialising scan pipeline…</div>
                 </div>
             </div>
 
-            <!-- Statistics Cards -->
-            <div class="stats-grid">
-                <div class="glass-card stat-card">
-                    <div class="stat-icon"><i class="fas fa-receipt"></i></div>
-                    <div class="stat-number" data-target="150000" data-suffix="+">0</div>
-                    <div class="stat-label">Transactions Processed</div>
+            <!-- LIVE STATS STRIP -->
+            <div class="stats">
+                <div class="stat">
+                    <div class="v" data-live="statements">150,000+</div>
+                    <div class="l">statements analyzed</div>
                 </div>
-                <div class="glass-card stat-card">
-                    <div class="stat-icon"><i class="fas fa-tags"></i></div>
-                    <div class="stat-number" data-target="25" data-suffix="+">0</div>
-                    <div class="stat-label">Auto Categories</div>
+                <div class="stat">
+                    <div class="v" data-live="volume">₹45.2 Cr</div>
+                    <div class="l">ledger volume mapped</div>
                 </div>
-                <div class="glass-card stat-card">
-                    <div class="stat-icon"><i class="fas fa-shield-virus"></i></div>
-                    <div class="stat-number" data-target="99" data-suffix=".8%">0</div>
-                    <div class="stat-label">Fraud & Anomaly Detection</div>
+                <div class="stat">
+                    <div class="v" data-live="anomalies">1,280</div>
+                    <div class="l">anomalies flagged</div>
                 </div>
-                <div class="glass-card stat-card">
-                    <div class="stat-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <div class="stat-number" data-target="45000" data-suffix="+">0</div>
-                    <div class="stat-label">Monthly Reports</div>
+                <div class="stat">
+                    <div class="v" data-live="accuracy">99.8%</div>
+                    <div class="l">math integrity verified</div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ==========================================================================
-         2. ABOUT SECTION
-         ========================================================================== -->
-    <section id="about" class="section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Understanding The Solution</div>
-                <h2 class="section-title">Why Smart Statement Analysis Matters</h2>
-                <p class="section-desc">Manual auditing of monthly bank statements is slow, error-prone, and hides critical spending leaks.</p>
+        <!-- ==========================================================================
+             CAPABILITIES / FEATURES (CityLens Style)
+             ========================================================================== -->
+        <section id="features" style="padding:60px 0 40px;">
+            <div class="sec-t" style="font-family:var(--disp); font-size:28px; font-weight:700; text-align:center; margin-bottom:8px; color:#F5F7FF;">
+                A complete financial-sensing operating system
             </div>
-
-            <div class="about-grid">
-                <!-- Problem Statement Card -->
-                <div class="glass-card about-card">
-                    <h3><i class="fas fa-triangle-exclamation" style="color: var(--accent-rose);"></i> Problem Statement</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
-                        <strong>Why manual statement analysis is difficult:</strong> Standard bank statements come in cryptic CSV or Excel formats with inconsistent narrations (`UPI/1920/SWIGGY`, `ACH DEBIT HDFC`).
-                    </p>
-                    <ul class="problem-list">
-                        <li><i class="fas fa-xmark"></i> <strong>Floating Point Errors:</strong> Standard spreadsheets accumulate binary rounding errors when calculating large currency balances.</li>
-                        <li><i class="fas fa-xmark"></i> <strong>Hidden Recurring Debits:</strong> Duplicate charges and silent subscription auto-renewals get overlooked in long transaction lists.</li>
-                        <li><i class="fas fa-xmark"></i> <strong>Time Consuming:</strong> Manual ledgering takes hours every month per bank account.</li>
-                        <li><i class="fas fa-xmark"></i> <strong>Lack of Pattern Matching:</strong> Difficult to separate UPI P2P payments from P2M merchant expenses.</li>
-                    </ul>
-                </div>
-
-                <!-- Solution & Objectives Card -->
-                <div class="glass-card about-card">
-                    <h3><i class="fas fa-bullseye" style="color: var(--secondary);"></i> Objectives & Benefits</h3>
-                    <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
-                        <strong>Project Objectives:</strong> Build an automated, local-first Python & SQLite engine that standardizes input statements, enforces exact monetary precision, and delivers instant insights.
-                    </p>
-                    <ul class="benefit-list">
-                        <li><i class="fas fa-check"></i> <strong>Exact Decimal Math:</strong> Python `Decimal` data type ensures zero precision loss down to the cent/paisa.</li>
-                        <li><i class="fas fa-check"></i> <strong>Intelligent Rule Classifier:</strong> Auto-flags Salaries, EMIs, Subscriptions, and UPI handles instantly.</li>
-                        <li><i class="fas fa-check"></i> <strong>Local Database Storage:</strong> Complete privacy with SQLite serverless relational storage.</li>
-                        <li><i class="fas fa-check"></i> <strong>Instant Anomaly Shield:</strong> Detects duplicate debits within 48h and sudden spending spikes.</li>
-                    </ul>
-                </div>
+            <div class="sec-s" style="text-align:center; color:#AAB4C9; max-width:580px; margin:0 auto 36px; font-size:15px;">
+                From raw CSV statements on your desktop to accountable audit reports — one integrated platform.
             </div>
-
-            <!-- Target Users Grid -->
-            <div style="margin-top: 3.5rem;">
-                <h3 style="text-align: center; font-family: var(--font-heading); margin-bottom: 1.5rem;">Designed for Every Financial Workflow</h3>
-                <div class="target-users-grid">
-                    <div class="user-type-card">
-                        <i class="fas fa-user-shield"></i>
-                        <h4>Personal Trackers</h4>
-                        <p>Track cash flow, savings rate, and hidden subscriptions.</p>
-                    </div>
-                    <div class="user-type-card">
-                        <i class="fas fa-laptop-code"></i>
-                        <h4>Freelancers</h4>
-                        <p>Separate client payments from personal daily expenses.</p>
-                    </div>
-                    <div class="user-type-card">
-                        <i class="fas fa-building-columns"></i>
-                        <h4>SMEs & Business</h4>
-                        <p>Audit vendor payouts, payrolls, and bank charges.</p>
-                    </div>
-                    <div class="user-type-card">
-                        <i class="fas fa-calculator"></i>
-                        <h4>Auditors & CAs</h4>
-                        <p>Verify bank reconciliations with exact decimal accuracy.</p>
-                    </div>
+            
+            <div class="feat">
+                <div class="fcard">
+                    <div class="fico">◎</div>
+                    <b>14 financial classes</b>
+                    <p>UPI handles, Salary credits, Loan EMIs, Saas Subscriptions, Food &amp; Dining, Utilities, Cash Withdrawals, Vendor Payouts, and Tax Debits — each with confidence scoring and exact amount precision.</p>
+                </div>
+                
+                <div class="fcard">
+                    <div class="fico">📊</div>
+                    <b>Live Command Dashboard</b>
+                    <p>Every transaction line and anomaly alert on a dark-ops financial workspace with evidence breakdown, filters, category toggles, and live balance telemetry.</p>
+                </div>
+                
+                <div class="fcard">
+                    <div class="fico">⚡</div>
+                    <b>Decimal AI Economics</b>
+                    <p>Financial ledger math is computed using Python's native Decimal module — completely eliminating binary IEEE-754 floating-point drift and rounding errors.</p>
+                </div>
+                
+                <div class="fcard">
+                    <div class="fico">✓</div>
+                    <b>Closed-loop audit tickets</b>
+                    <p>Detected → verified → categorized → flagged → resolved. Dedicated category channels, risk queues, field notes, and a full audit trail for every transaction.</p>
+                </div>
+                
+                <div class="fcard">
+                    <div class="fico">♥</div>
+                    <b>Financial Health Index</b>
+                    <p>Per-account condition scoring from expense-to-income ratio, savings velocity, and verified subscription credits — never an arbitrary score.</p>
+                </div>
+                
+                <div class="fcard">
+                    <div class="fico">▶</div>
+                    <b>Upload &amp; Analyze Dropzone</b>
+                    <p>Drop any CSV/Excel statement file into the same AI pipeline — watch real ledger lines, categorizations, and measured balance ratios appear live.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ==========================================================================
-         3. FEATURES SECTION (12 Cards)
-         ========================================================================== -->
-    <section id="features" class="section" style="background: rgba(15, 23, 42, 0.4);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Core Capabilities</div>
-                <h2 class="section-title">Comprehensive Financial Analysis Engine</h2>
-                <p class="section-desc">12 powerful modules working together to turn complex statements into clear actionable intelligence.</p>
-            </div>
-
-            <div class="features-grid">
-                <!-- Card 1 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-file-csv"></i></div>
-                    <h3>CSV/Excel Upload</h3>
-                    <p>Parses multi-bank CSV and Excel statement sheets cleanly, auto-detecting date formats, narration headers, credit/debit columns, and account balances.</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-layer-group"></i></div>
-                    <h3>Auto Categorization</h3>
-                    <p>Intelligent pattern-matching engine that maps raw transaction descriptions into clear categories: Groceries, Food & Dining, Utilities, Shopping, and Investments.</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-mobile-screen-button"></i></div>
-                    <h3>UPI Detection</h3>
-                    <p>Parses complex VPA handles (`@okaxis`, `@ybl`, `@paytm`) to distinguish P2P personal transfers from P2M merchant payments.</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-money-bill-wave"></i></div>
-                    <h3>Salary Detection</h3>
-                    <p>Identifies recurring monthly payroll credits, corporate salary keywords (`ACH CREDIT`, `PAYROLL`), and employer bonus payments.</p>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-house-chimney-crack"></i></div>
-                    <h3>EMI Detection</h3>
-                    <p>Pinpoints monthly recurring loan repayments, tenure tracking, credit card EMIs, and auto-debit mortgage schedules.</p>
-                </div>
-
-                <!-- Card 6 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-rotate"></i></div>
-                    <h3>Subscription Detection</h3>
-                    <p>Detects recurring digital SaaS services, streaming platforms (Netflix, Spotify, AWS, Prime), and membership fees.</p>
-                </div>
-
-                <!-- Card 7 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-clone"></i></div>
-                    <h3>Duplicate Debit Detection</h3>
-                    <p>Automated anomaly flagger highlighting identical debit amounts executed within short 48-hour time windows.</p>
-                </div>
-
-                <!-- Card 8 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-chart-line-up"></i></div>
-                    <h3>Spending Spike Detection</h3>
-                    <p>Outlier detection algorithm flagging sudden high-value debits exceeding 2.5x the rolling 30-day average transaction size.</p>
-                </div>
-
-                <!-- Card 9 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-pie-chart"></i></div>
-                    <h3>Monthly Expense Analysis</h3>
-                    <p>Generates categorical spending distribution, cash flow velocity, savings rate, and month-over-month burn rate metrics.</p>
-                </div>
-
-                <!-- Card 10 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-database"></i></div>
-                    <h3>SQLite Storage</h3>
-                    <p>Embedded, zero-configuration relational database storing normalized transactions, upload audit logs, and custom rules.</p>
-                </div>
-
-                <!-- Card 11 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-calculator"></i></div>
-                    <h3>Decimal Precision</h3>
-                    <p>Uses Python's native `Decimal` module for all financial arithmetic, completely eliminating IEEE-754 binary floating-point rounding errors.</p>
-                </div>
-
-                <!-- Card 12 -->
-                <div class="glass-card feature-card">
-                    <div class="feature-icon-box"><i class="fas fa-sliders"></i></div>
-                    <h3>Rule-Based Classification</h3>
-                    <p>Configurable priority keyword mapping allowing users to define custom rules for merchant names, tags, and category overrides.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         4. WORKFLOW SECTION
-         ========================================================================== -->
-    <section id="workflow" class="section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Execution Architecture</div>
-                <h2 class="section-title">How The Analyzer Pipeline Works</h2>
-                <p class="section-desc">From raw bank statement file to tax-ready insights in 7 automated steps.</p>
-            </div>
-
-            <div class="workflow-pipeline">
-                <div class="glass-card workflow-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>Upload Statement</h4>
-                        <p>User drops CSV or Excel statement files into the secure web interface or uploads via API.</p>
+        <!-- ==========================================================================
+             LIVE UPLOAD & COMMAND CENTER SECTION
+             ========================================================================== -->
+        <section id="command-center" style="padding:40px 0 60px;">
+            <div class="pipe-card" style="margin: 0 auto; max-width: 1060px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+                    <div>
+                        <h3 style="font-family:var(--disp); font-size:22px; color:#F5F7FF; margin-bottom:4px;">
+                            <i class="fas fa-cloud-arrow-up" style="color:#6F80FF;"></i> Instant Statement Scanner Dropzone
+                        </h3>
+                        <p style="color:#9FAAC0; font-size:13.5px;">Upload your bank statement CSV or Excel file to analyze transactions instantly with Python Edge AI.</p>
                     </div>
-                    <div class="step-badge">Ingest Layer</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>Read CSV/Excel</h4>
-                        <p>Python file reader standardizes headers, cleans special characters, and extracts dates, descriptions, credits, and debits.</p>
-                    </div>
-                    <div class="step-badge">Parser Module</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>Store in SQLite</h4>
-                        <p>Transactions are written into SQLite tables using fixed `Decimal` string fields for auditability and fast indexing.</p>
-                    </div>
-                    <div class="step-badge">Relational DB</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>Categorize Transactions</h4>
-                        <p>Rule classifier matches narrations against predefined patterns (UPI, Salary, EMI, Subscriptions, Shopping, Groceries).</p>
-                    </div>
-                    <div class="step-badge">Classifier Engine</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">5</div>
-                    <div class="step-content">
-                        <h4>Detect Anomalies</h4>
-                        <p>Scans for duplicate debits within 48h and flags spending spikes exceeding 2.5x the rolling 30-day average.</p>
-                    </div>
-                    <div class="step-badge">Shield Module</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">6</div>
-                    <div class="step-content">
-                        <h4>Generate Insights</h4>
-                        <p>Calculates exact total income, total expenses, net savings, and category distribution percentages.</p>
-                    </div>
-                    <div class="step-badge">Analytics API</div>
-                </div>
-                <div class="workflow-arrow"><i class="fas fa-arrow-down"></i></div>
-
-                <div class="glass-card workflow-step">
-                    <div class="step-number">7</div>
-                    <div class="step-content">
-                        <h4>Create Monthly Report</h4>
-                        <p>Renders interactive Chart.js graphs, filterable transaction tables, and exportable financial summaries.</p>
-                    </div>
-                    <div class="step-badge">Interactive Dashboard</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         5. DASHBOARD PREVIEW SECTION
-         ========================================================================== -->
-    <section id="dashboard-preview" class="section" style="background: rgba(11, 15, 25, 0.6);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Live Workspace</div>
-                <h2 class="section-title">Interactive Dashboard Workspace</h2>
-                <p class="section-desc">Experience real-time filtering, Chart.js visualizations, anomaly detection, and exact decimal balance tracking.</p>
-                <div style="margin-top: 1.5rem;">
-                    <a href="/dashboard" class="btn btn-primary" style="padding: 0.85rem 2rem;"><i class="fas fa-gauge-high"></i> Launch Dedicated Dashboard Page</a>
-                </div>
-            </div>
-
-            <div class="dashboard-preview-container">
-                <div class="dash-header">
-                    <div class="dash-title">
-                        <i class="fas fa-wallet" style="color: var(--primary);"></i>
-                        <span>Account Summary Overview</span>
-                    </div>
-                    <div class="dash-controls">
-                        <a href="/login" class="btn btn-secondary"><i class="fas fa-lock"></i> Login for Personal Workspace</a>
-                        <a href="/download-sample-csv" download="sample_statement.csv" class="btn btn-primary">
-                            <i class="fas fa-download"></i> Sample CSV
+                    <div>
+                        <a href="/download-sample-csv" download class="btn btn-ghost" style="padding:8px 16px; border-radius:9px; font-size:13px; text-decoration:none;">
+                            <i class="fas fa-file-csv"></i> Download Sample CSV
                         </a>
                     </div>
                 </div>
 
-                <div class="summary-cards-grid">
-                    <div class="kpi-card">
-                        <div class="kpi-header">
-                            <span class="kpi-title">Total Income</span>
-                            <i class="fas fa-arrow-down-left kpi-icon" style="color: var(--secondary);"></i>
-                        </div>
-                        <div class="kpi-val" id="kpi-total-income">₹2,54,500.00</div>
-                        <div class="kpi-trend positive"><i class="fas fa-trending-up"></i> Salary & Freelance Credits</div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-header">
-                            <span class="kpi-title">Total Expenses</span>
-                            <i class="fas fa-arrow-up-right kpi-icon" style="color: var(--accent-rose);"></i>
-                        </div>
-                        <div class="kpi-val" id="kpi-total-expense">₹1,47,567.50</div>
-                        <div class="kpi-trend negative"><i class="fas fa-shopping-bag"></i> EMIs, Shopping & Dining</div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-header">
-                            <span class="kpi-title">Net Savings</span>
-                            <i class="fas fa-piggy-bank kpi-icon" style="color: var(--primary);"></i>
-                        </div>
-                        <div class="kpi-val" id="kpi-net-savings">₹1,06,932.50</div>
-                        <div class="kpi-trend positive"><i class="fas fa-chart-line"></i> Savings Rate: <span id="kpi-savings-rate">42.0%</span></div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-header">
-                            <span class="kpi-title">Anomalies Detected</span>
-                            <i class="fas fa-bell kpi-icon" style="color: var(--accent-amber);"></i>
-                        </div>
-                        <div class="kpi-val" id="kpi-anomalies">3</div>
-                        <div class="kpi-trend negative"><i class="fas fa-shield-alert"></i> 1 Duplicate + 2 Spikes</div>
-                    </div>
+                <!-- Drag & Drop Zone -->
+                <div id="drop-area" style="border: 2px dashed rgba(111,128,255,.4); border-radius: 16px; padding: 40px 20px; text-align: center; background: rgba(112,128,255,.05); transition: 0.2s; cursor: pointer;">
+                    <i class="fas fa-file-excel" style="font-size: 3rem; color: #6F80FF; margin-bottom: 12px;"></i>
+                    <h4 style="font-family: var(--disp); font-size: 18px; color: #F5F7FF; margin-bottom: 6px;">Drag &amp; Drop Bank Statement Here</h4>
+                    <p style="color: #9FAAC0; font-size: 13.5px; margin-bottom: 16px;">Supports .csv, .xlsx, .xls statement files from HDFC, ICICI, SBI, Axis, etc.</p>
+                    <input type="file" id="statement-file-input" accept=".csv, .xlsx, .xls" style="display: none;">
+                    <button class="btn btn-primary" onclick="document.getElementById('statement-file-input').click()" style="background:linear-gradient(135deg,#6F80FF,#8C69FF); padding:10px 20px; border-radius:9px; font-size:14px; border:none; cursor:pointer;">
+                        Select Statement File
+                    </button>
                 </div>
 
-                <div class="dash-grid-top">
-                    <div class="chart-card">
-                        <h4><i class="fas fa-chart-pie" style="color: var(--primary);"></i> Expense Distribution by Category</h4>
-                        <div class="chart-wrapper">
-                            <canvas id="categoryPieChart"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="alerts-panel">
-                        <div class="chart-card" style="height: 100%;">
-                            <h4><i class="fas fa-shield-virus" style="color: var(--accent-rose);"></i> Anomaly & Fraud Shield</h4>
-                            
-                            <div class="alert-item">
-                                <i class="fas fa-copy"></i>
-                                <div class="alert-text">
-                                    <h5>Duplicate Debit Warning</h5>
-                                    <p>Identical charge <strong>₹1,179.00</strong> (Airtel Broadband) executed twice within 24h.</p>
-                                </div>
-                            </div>
-
-                            <div class="alert-item warning" style="margin-top: 0.75rem;">
-                                <i class="fas fa-bolt"></i>
-                                <div class="alert-text">
-                                    <h5>Spending Spike Flag</h5>
-                                    <p>Debit <strong>₹48,500.00</strong> (Amazon Purchase) is 3.8x above your 30-day average size.</p>
-                                </div>
-                            </div>
-
-                            <div class="alert-item" style="margin-top: 0.75rem; background: rgba(139, 92, 246, 0.08); border-color: rgba(139, 92, 246, 0.3);">
-                                <i class="fas fa-repeat" style="color: var(--accent-purple);"></i>
-                                <div class="alert-text">
-                                    <h5 style="color: #c084fc;">Subscription Auto-Renewal</h5>
-                                    <p>Netflix & Spotify debited <strong>₹768.00</strong> total recurring monthly charge.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Upload Status / Alert -->
+                <div id="upload-status" style="margin-top: 16px; display: none; padding: 14px; border-radius: 10px; font-family: var(--mono); font-size: 13px;"></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- ==========================================================================
-         6. TECHNOLOGY STACK SECTION
-         ========================================================================== -->
-    <section id="techstack" class="section">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Under The Hood</div>
-                <h2 class="section-title">Built With Robust Technologies</h2>
-                <p class="section-desc">Engineered for security, zero financial floating point error, and rapid client-side rendering.</p>
-            </div>
+        <!-- ==========================================================================
+             FOOTER CTA (CityLens Style)
+             ========================================================================== -->
+        <section class="foot-cta">
+            <h2>See your finances the way FinPulse sees it</h2>
+            <p>Launch the command center or sign in — a complete detect → dedupe → audit ticket → verify loop is live inside.</p>
+            <a class="btn btn-primary" href="/dashboard" style="background:linear-gradient(135deg,#6F80FF,#8C69FF); color:#fff; padding:12px 28px; border-radius:11px; font-weight:600; text-decoration:none; box-shadow:0 12px 35px rgba(87,96,255,.3);">Launch Command Center →</a>
+        </section>
 
-            <div class="tech-stack-grid">
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fab fa-python"></i></div>
-                    <h4>Python</h4>
-                    <p>Core backend logic, classification engine, and Flask API framework.</p>
-                </div>
+        <!-- FOOTER -->
+        <footer style="border-top:1px solid rgba(255,255,255,.08); padding:24px 0 36px; color:#78849C; font-size:13px; display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+            <span>FinPulse AI — Urban Financial Intelligence &amp; Statement Operating System</span>
+            <span style="margin-left:auto; font-family:var(--mono);">v3 · SIH production build · edge-first</span>
+        </footer>
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fas fa-database"></i></div>
-                    <h4>SQLite</h4>
-                    <p>Serverless relational database for audit logs and normalized transactions.</p>
-                </div>
+    </div>
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fas fa-file-csv"></i></div>
-                    <h4>CSV & Excel</h4>
-                    <p>Multi-format statement ingest engine handling multi-bank layouts.</p>
-                </div>
+    <!-- PIPELINE ANIMATION SCRIPT (CityLens Style) -->
+    <script>
+    (function(){
+      const nodes = [...document.querySelectorAll('.pnode')];
+      const readout = document.getElementById('readout');
+      const events = [
+        ['DUPLICATE DEBIT', '#FF6678', 'Fraud Operations'],
+        ['SALARY CREDIT', '#39D98A', 'Income Tracker'],
+        ['SPENDING SPIKE', '#FF9D3D', 'Risk Management'],
+        ['EMI REPAYMENT', '#7D8BFF', 'Loan Audit'],
+        ['UPI P2M MERCHANT', '#C8D1FF', 'Ledger Classification'],
+      ];
+      let ev = 0;
+      function run(){
+        const e = events[ev % events.length]; ev++;
+        nodes.forEach(n => n.classList.remove('lit', 'send'));
+        let i = 0;
+        const step = () => {
+          if(i > 0){ nodes[i-1].classList.remove('send'); }
+          if(i < nodes.length){
+            nodes[i].classList.add('lit');
+            if(i < nodes.length - 1){
+              const s = nodes[i].querySelector('.spark');
+              if(s){ s.style.animation = 'none'; void s.offsetWidth; s.style.animation = ''; }
+              nodes[i].classList.add('send');
+            }
+            if(i === 2) readout.innerHTML = '<span class="tag">›</span> class <span class="sev" style="color:'+e[1]+'">'+e[0]+'</span> — on-device CV &amp; rule inference';
+            if(i === 3) readout.innerHTML = '<span class="tag">›</span> <span class="sev" style="color:'+e[1]+'">'+e[0]+'</span> — Decimal math verified (0.00 float drift)';
+            if(i === 5) readout.innerHTML = '<span class="tag">›</span> <span class="sev" style="color:'+e[1]+'">'+e[0]+'</span> → '+e[2]+' · <span style="color:#39D98A">ticket · SLA · verified close ✓</span>';
+            i++; setTimeout(step, 1050);
+          } else {
+            setTimeout(run, 2400);
+          }
+        };
+        step();
+      }
+      if(nodes.length > 0 && readout) run();
+    })();
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fas fa-calculator"></i></div>
-                    <h4>Decimal Module</h4>
-                    <p>Guarantees exact monetary arithmetic without binary IEEE float drift.</p>
-                </div>
+    // Drag and Drop Handler
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('statement-file-input');
+    const uploadStatus = document.getElementById('upload-status');
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fab fa-html5"></i></div>
-                    <h4>HTML5</h4>
-                    <p>Semantic structure, drag-and-drop file dropzones, and SEO tags.</p>
-                </div>
+    if (dropArea && fileInput) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fab fa-css3-alt"></i></div>
-                    <h4>CSS3</h4>
-                    <p>Modern glassmorphism aesthetics, flexbox/grid, and micro-animations.</p>
-                </div>
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fab fa-js"></i></div>
-                    <h4>JavaScript (ES6+)</h4>
-                    <p>Dynamic DOM filtering, API integration, and interactive event handlers.</p>
-                </div>
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => {
+                dropArea.style.borderColor = '#39D98A';
+                dropArea.style.background = 'rgba(57,217,138,.1)';
+            }, false);
+        });
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fab fa-bootstrap"></i></div>
-                    <h4>Bootstrap & Icons</h4>
-                    <p>Responsive design utilities, modal dialogs, and vector icon library.</p>
-                </div>
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => {
+                dropArea.style.borderColor = 'rgba(111,128,255,.4)';
+                dropArea.style.background = 'rgba(112,128,255,.05)';
+            }, false);
+        });
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fas fa-chart-column"></i></div>
-                    <h4>Chart.js</h4>
-                    <p>Responsive doughnut and bar charts for financial visual analysis.</p>
-                </div>
+        dropArea.addEventListener('drop', handleDrop, false);
 
-                <div class="glass-card tech-card">
-                    <div class="tech-icon"><i class="fas fa-server"></i></div>
-                    <h4>Gunicorn WSGI</h4>
-                    <p>Production-ready WSGI HTTP server deployment configuration.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                uploadFile(files[0]);
+            }
+        }
 
-    <!-- ==========================================================================
-         7. FUTURE ENHANCEMENTS SECTION
-         ========================================================================== -->
-    <section id="futurescope" class="section" style="background: rgba(15, 23, 42, 0.4);">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Roadmap & Growth</div>
-                <h2 class="section-title">Future Enhancements</h2>
-                <p class="section-desc">Exciting features scheduled for upcoming releases of Smart Bank Statement Analyzer.</p>
-            </div>
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                uploadFile(this.files[0]);
+            }
+        });
 
-            <div class="roadmap-grid">
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v2.5 Planned</div>
-                    <i class="fas fa-file-pdf"></i>
-                    <h4>PDF Report Generation</h4>
-                    <p>Export beautifully formatted executive financial summary PDFs with charts and tax breakdowns.</p>
-                </div>
+        function uploadFile(file) {
+            uploadStatus.style.display = 'block';
+            uploadStatus.style.background = 'rgba(112,128,255,.15)';
+            uploadStatus.style.color = '#C9D1FF';
+            uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing ' + file.name + ' through Python Edge AI pipeline...';
 
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v3.0 In Research</div>
-                    <i class="fas fa-brain"></i>
-                    <h4>AI Expense Prediction</h4>
-                    <p>Machine learning models forecasting next month's spending patterns and budget overrun warnings.</p>
-                </div>
+            const formData = new FormData();
+            formData.append('file', file);
 
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v2.5 Planned</div>
-                    <i class="fas fa-repeat"></i>
-                    <h4>Recurring Payment Detection</h4>
-                    <p>Auto-identification of unused SaaS subscriptions with 1-click cancellation recommendations.</p>
-                </div>
-
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v2.8 Planned</div>
-                    <i class="fas fa-envelope-open-text"></i>
-                    <h4>Email & Push Alerts</h4>
-                    <p>Real-time notifications via email or Telegram when duplicate charges or high debits occur.</p>
-                </div>
-
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v3.0 Future</div>
-                    <i class="fas fa-building-columns"></i>
-                    <h4>Multi-Bank Aggregation</h4>
-                    <p>Combine statement inputs across HDFC, ICICI, SBI, and international accounts in one view.</p>
-                </div>
-
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v2.8 Planned</div>
-                    <i class="fas fa-cloud-arrow-up"></i>
-                    <h4>Encrypted Cloud Backup</h4>
-                    <p>Optional end-to-end encrypted SQLite cloud synchronization for multi-device access.</p>
-                </div>
-
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v3.5 Future</div>
-                    <i class="fas fa-mobile-screen"></i>
-                    <h4>Mobile Companion App</h4>
-                    <p>Native iOS & Android app with receipt scanning OCR and instant UPI statement analysis.</p>
-                </div>
-
-                <div class="glass-card roadmap-card">
-                    <div class="roadmap-status">v3.2 Future</div>
-                    <i class="fas fa-receipt"></i>
-                    <h4>GST & Tax Filing Export</h4>
-                    <p>Auto-generates GSTR-2B reconciliation reports and tax deduction summaries.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================================================
-         8. CONTACT SECTION
-         ========================================================================== -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="contact-grid">
-                <div>
-                    <div class="section-subtitle">Get In Touch</div>
-                    <h2 class="section-title">Connect With The FinPulse AI Team</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
-                        Have questions about statement formats, custom classification rules, or enterprise API integration? Drop us a line!
-                    </p>
-
-                    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="feature-icon-box" style="margin-bottom: 0;"><i class="fas fa-user"></i></div>
-                            <div>
-                                <div style="font-weight: 700;">Project Creator</div>
-                                <div style="color: var(--text-muted); font-size: 0.9rem;">Alex Morgan (Lead FinTech Engineer)</div>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="feature-icon-box" style="margin-bottom: 0;"><i class="fas fa-envelope"></i></div>
-                            <div>
-                                <div style="font-weight: 700;">Email Support</div>
-                                <div style="color: var(--text-muted); font-size: 0.9rem;">contact@bankflow.ai</div>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div class="feature-icon-box" style="margin-bottom: 0;"><i class="fas fa-location-dot"></i></div>
-                            <div>
-                                <div style="font-weight: 700;">Open Source HQ</div>
-                                <div style="color: var(--text-muted); font-size: 0.9rem;">Koramangala Tech Park, Bengaluru, India</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card" style="padding: 2.25rem;">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="contactName">Your Name</label>
-                            <input type="text" id="contactName" class="form-control" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactEmail">Email Address</label>
-                            <input type="email" id="contactEmail" class="form-control" placeholder="john@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactMessage">Message</label>
-                            <textarea id="contactMessage" class="form-control" placeholder="Tell us about your bank statement analysis needs..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="#home" class="logo">
-                        <div class="logo-icon"><i class="fas fa-chart-line"></i></div>
-                        <span>FinPulse <span class="text-gradient">AI</span></span>
-                    </a>
-                    <p>Smart Financial Analysis for Every Bank Statement. High-precision transaction categorization and anomaly shield powered by Python & SQLite.</p>
-                </div>
-
-                <div class="footer-links">
-                    <h5>Quick Links</h5>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#workflow">Workflow</a></li>
-                        <li><a href="/dashboard">Dashboard Page</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h5>Account & Access</h5>
-                    <ul>
-                        <li><a href="/login">Login Page</a></li>
-                        <li><a href="/register">Register Account</a></li>
-                        <li><a href="{{ url_for('static', filename='../sample_statement.csv') }}">Sample CSV</a></li>
-                        <li><a href="#contact">Contact Support</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links">
-                    <h5>Social & Code</h5>
-                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
-                        <a href="https://github.com" target="_blank" class="btn btn-secondary" style="padding: 0.6rem 0.9rem;"><i class="fab fa-github" style="font-size: 1.25rem;"></i> GitHub</a>
-                        <a href="https://linkedin.com" target="_blank" class="btn btn-secondary" style="padding: 0.6rem 0.9rem;"><i class="fab fa-linkedin" style="font-size: 1.25rem;"></i> LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div>© 2026 Smart Bank Statement Analyzer. All rights reserved.</div>
-                <div>Made with ❤️ using Python & SQLite</div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Application Script Engine -->
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+            fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    uploadStatus.style.background = 'rgba(57,217,138,.2)';
+                    uploadStatus.style.color = '#39D98A';
+                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Statement parsed successfully! ' + data.transactions_count + ' transactions processed with exact Decimal precision. Redirecting to Command Center...';
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                } else {
+                    uploadStatus.style.background = 'rgba(255,102,120,.2)';
+                    uploadStatus.style.color = '#FF6678';
+                    uploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error: ' + (data.message || 'Failed to parse file.');
+                }
+            })
+            .catch(err => {
+                uploadStatus.style.background = 'rgba(255,102,120,.2)';
+                uploadStatus.style.color = '#FF6678';
+                uploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error during upload.';
+            });
+        }
+    }
+    </script>
 </body>
 </html>
