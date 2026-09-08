@@ -268,33 +268,53 @@ document.getElementById('txnFlagFilter')?.addEventListener('change', (e) => {
 function initFileUpload() {
     const dropzone = document.getElementById('fileDropzone');
     const fileInput = document.getElementById('statementFileInput');
+    const selectBtn = document.getElementById('dashSelectFileBtn');
 
     if (!dropzone || !fileInput) return;
 
-    dropzone.addEventListener('click', () => fileInput.click());
+    if (selectBtn) {
+        selectBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.value = '';
+            fileInput.click();
+        });
+    }
 
-    dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = 'var(--primary)';
-        dropzone.style.background = 'rgba(6, 182, 212, 0.12)';
+    dropzone.addEventListener('click', (e) => {
+        if (selectBtn && (e.target === selectBtn || selectBtn.contains(e.target))) {
+            return;
+        }
+        fileInput.value = '';
+        fileInput.click();
     });
 
-    dropzone.addEventListener('dragleave', () => {
-        dropzone.style.borderColor = 'var(--border-highlight)';
-        dropzone.style.background = 'rgba(6, 182, 212, 0.03)';
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.style.borderColor = 'var(--primary)';
+            dropzone.style.background = 'rgba(6, 182, 212, 0.12)';
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.style.borderColor = 'var(--border-highlight)';
+            dropzone.style.background = 'rgba(6, 182, 212, 0.03)';
+        });
     });
 
     dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = 'var(--border-highlight)';
-        dropzone.style.background = 'rgba(6, 182, 212, 0.03)';
-        if (e.dataTransfer.files.length) {
+        if (e.dataTransfer && e.dataTransfer.files.length) {
+            fileInput.files = e.dataTransfer.files;
             handleFileUpload(e.dataTransfer.files[0]);
         }
     });
 
     fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length) {
+        if (e.target.files && e.target.files.length) {
             handleFileUpload(e.target.files[0]);
         }
     });

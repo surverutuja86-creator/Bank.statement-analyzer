@@ -358,9 +358,9 @@
                     <i class="fas fa-file-excel" style="font-size: 3rem; color: #06b6d4; margin-bottom: 14px;"></i>
                     <h4 style="font-family: var(--disp); font-size: 18px; color: #F5F7FF; margin-bottom: 6px;">Drag &amp; Drop Bank Statement Here</h4>
                     <p style="color: #9FAAC0; font-size: 13.5px; margin-bottom: 18px;">Supports .csv, .xlsx, .xls files from HDFC, ICICI, SBI, Axis, Kotak, etc.</p>
-                    <input type="file" id="statement-file-input" accept=".csv, .xlsx, .xls" style="display: none;">
-                    <button class="btn btn-primary" onclick="document.getElementById('statement-file-input').click()" style="background:linear-gradient(135deg,#06b6d4,#0284c7); padding:11px 22px; border-radius:9px; font-size:14px; border:none; cursor:pointer; font-weight:600;">
-                        Select Statement File
+                    <input type="file" id="statement-file-input" accept=".csv, .xlsx, .xls, text/csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="display: none;">
+                    <button type="button" id="select-file-btn" class="btn btn-primary" style="background:linear-gradient(135deg,#06b6d4,#0284c7); padding:11px 22px; border-radius:9px; font-size:14px; border:none; cursor:pointer; font-weight:600;">
+                        <i class="fas fa-folder-open"></i> Select Statement File
                     </button>
                 </div>
 
@@ -625,17 +625,32 @@
     // Drag and Drop Statement Handler
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('statement-file-input');
+    const selectFileBtn = document.getElementById('select-file-btn');
     const uploadStatus = document.getElementById('upload-status');
 
     if (dropArea && fileInput) {
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
+        if (selectFileBtn) {
+            selectFileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                fileInput.value = '';
+                fileInput.click();
+            });
+        }
+
+        dropArea.addEventListener('click', (e) => {
+            if (selectFileBtn && (e.target === selectFileBtn || selectFileBtn.contains(e.target))) {
+                return;
+            }
+            fileInput.value = '';
+            fileInput.click();
         });
 
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
 
         ['dragenter', 'dragover'].forEach(eventName => {
             dropArea.addEventListener(eventName, () => {
@@ -651,19 +666,16 @@
             }, false);
         });
 
-        dropArea.addEventListener('drop', handleDrop, false);
-
-        function handleDrop(e) {
+        dropArea.addEventListener('drop', (e) => {
             const dt = e.dataTransfer;
-            const files = dt.files;
-            if (files.length > 0) {
-                fileInput.files = files;
-                uploadFile(files[0]);
+            if (dt && dt.files && dt.files.length > 0) {
+                fileInput.files = dt.files;
+                uploadFile(dt.files[0]);
             }
-        }
+        }, false);
 
         fileInput.addEventListener('change', function() {
-            if (this.files.length > 0) {
+            if (this.files && this.files.length > 0) {
                 uploadFile(this.files[0]);
             }
         });
@@ -672,7 +684,7 @@
             uploadStatus.style.display = 'block';
             uploadStatus.style.background = 'rgba(6,182,212,.15)';
             uploadStatus.style.color = '#38bdf8';
-            uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Parsing ' + file.name + ' through Python Decimal Engine...';
+            uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Parsing <strong>' + file.name + '</strong> (' + (file.size / 1024).toFixed(1) + ' KB)...';
 
             const formData = new FormData();
             formData.append('file', file);
@@ -683,17 +695,17 @@
             })
             .then(res => res.json())
             .then(data => {
-                if (data.status === 'success') {
+                if (data.status === 'success' || data.message) {
                     uploadStatus.style.background = 'rgba(57,217,138,.2)';
                     uploadStatus.style.color = '#39D98A';
-                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> Bank statement parsed successfully! ' + data.transactions_count + ' transactions processed. Redirecting to Dashboard...';
+                    uploadStatus.innerHTML = '<i class="fas fa-check-circle"></i> <strong>' + file.name + '</strong> parsed successfully! ' + (data.transactions_count || data.records_processed || 0) + ' transactions processed with exact Decimal precision. Redirecting...';
                     setTimeout(() => {
                         window.location.href = '/dashboard';
-                    }, 1500);
+                    }, 1200);
                 } else {
                     uploadStatus.style.background = 'rgba(255,102,120,.2)';
                     uploadStatus.style.color = '#FF6678';
-                    uploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error: ' + (data.message || 'Failed to parse file.');
+                    uploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error: ' + (data.error || data.message || 'Failed to parse file.');
                 }
             })
             .catch(err => {
